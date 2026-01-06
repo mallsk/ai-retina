@@ -1,7 +1,7 @@
 'use server';
 
 /**
- * @fileOverview Analyzes and compares retinal image enhancement filters.
+ * @fileOverview Analyzes and compares retinal image enhancement filters, and recommends the best one.
  *
  * - analyzeEnhancementFilters - A function that performs the analysis.
  * - EnhancementFilterAnalysisInput - The input type for the analyzeEnhancementFilters function.
@@ -28,6 +28,12 @@ const EnhancementFilterAnalysisOutputSchema = z.object({
     .describe(
       'Analysis comparing Median, Gaussian, Bilateral, CLAHE, Gabor, and Adaptive Histogram Equalization filters, including strengths and limitations for retinal vessel and lesion enhancement.'
     ),
+  bestFilter: z
+    .enum(['Median', 'Gaussian', 'Bilateral', 'CLAHE', 'Gabor', 'Adaptive Histogram Equalization'])
+    .describe('The best filter for enhancing the provided retinal image.'),
+  reasoning: z
+    .string()
+    .describe('The reasoning for choosing the best filter.'),
 });
 export type EnhancementFilterAnalysisOutput = z.infer<
   typeof EnhancementFilterAnalysisOutputSchema
@@ -43,7 +49,7 @@ const prompt = ai.definePrompt({
   name: 'enhancementFilterAnalysisPrompt',
   input: {schema: EnhancementFilterAnalysisInputSchema},
   output: {schema: EnhancementFilterAnalysisOutputSchema},
-  prompt: `You are an expert in image processing, specializing in retinal fundus images. Provide an analysis comparing the following enhancement filters, including their strengths and limitations for retinal vessel and lesion enhancement:
+  prompt: `You are an expert in image processing, specializing in retinal fundus images. Provide an analysis comparing the following enhancement filters, including their strengths and limitations for retinal vessel and lesion enhancement. Then, choose the best filter and provide a brief reasoning for your choice.
 
 - Median Filter
 - Gaussian Filter
