@@ -13,3 +13,6 @@ export type AnalysisResults = {
   adaptiveFilter: AdaptiveFilterApplicationOutput;
   metrics: EvaluationMetricsOutput;
 };
+
+// This is a new type based on the updated flow
+export type FilterAnalysisDetail = EnhancementFilterAnalysisOutput extends { analysis: (infer U)[] } ? U : never;
