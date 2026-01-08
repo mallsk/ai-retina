@@ -10,9 +10,9 @@ export const SegmentRetinalImageInputSchema = z.object({
 export type SegmentRetinalImageInput = z.infer<typeof SegmentRetinalImageInputSchema>;
 
 export const SegmentRetinalImageOutputSchema = z.object({
-  opticDiscMask: z.string().describe("A transparent PNG data URI of the optic disc segmentation mask, colored #FFD700 (Gold)."),
-  vesselsMask: z.string().describe("A transparent PNG data URI of the blood vessels segmentation mask, colored #00FFFF (Cyan)."),
-  lesionsMask: z.string().describe("A transparent PNG data URI of potential lesions (microaneurysms, hemorrhages, exudates) segmentation mask, colored #FF00FF (Magenta)."),
+  opticDiscDescription: z.string().describe("A textual description of the optic disc's appearance (shape, color, margins)."),
+  vesselsDescription: z.string().describe("A textual description of the blood vessels (width, tortuosity, AV nicking)."),
+  lesionsDescription: z.string().describe("A textual description of any potential lesions (microaneurysms, hemorrhages, exudates)."),
   segmentationSummary: z.string().describe("A brief summary of the key findings from the segmentation analysis, noting any significant features or abnormalities identified.")
 });
 export type SegmentRetinalImageOutput = z.infer<typeof SegmentRetinalImageOutputSchema>;

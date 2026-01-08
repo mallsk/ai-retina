@@ -3,7 +3,7 @@
 /**
  * @fileOverview A flow for segmenting a retinal image to identify key anatomical features and abnormalities.
  *
- * - segmentRetinalImage - A function that generates segmentation masks and a summary.
+ * - segmentRetinalImage - A function that generates a textual segmentation summary.
  */
 
 import { ai } from '@/ai/genkit';
@@ -19,24 +19,16 @@ const segmentationPrompt = ai.definePrompt({
   name: 'segmentationPrompt',
   input: { schema: SegmentRetinalImageInputSchema },
   output: { schema: SegmentRetinalImageOutputSchema },
-  prompt: `You are a specialized AI model for retinal image analysis. Your task is to perform instance segmentation on the provided retinal fundus image.
+  prompt: `You are a specialized AI model for retinal image analysis. Your task is to perform a conceptual segmentation on the provided retinal fundus image.
 
-You must identify and generate separate segmentation masks for the following features:
-1.  **Optic Disc**: The circular area where the optic nerve connects to the retina.
-2.  **Blood Vessels**: The network of arteries and veins.
-3.  **Lesions**: Any potential abnormalities, including microaneurysms, hemorrhages, and hard or soft exudates.
+You must identify and provide a detailed text description for each of the following features:
+1.  **Optic Disc**: Describe its appearance, including shape, color, and clarity of its margins.
+2.  **Blood Vessels**: Describe the vessel network, including their width, tortuosity, and any notable characteristics like arteriovenous (AV) nicking.
+3.  **Lesions**: Describe any potential abnormalities, including microaneurysms, hemorrhages, and hard or soft exudates. If none are apparent, state that.
 
-For each feature, you must generate a transparent PNG image as a data URI. The mask for each feature should be a specific solid color with no transparency variation within the masked area itself:
--   Optic Disc Mask: Use color #FFD700 (Gold).
--   Vessels Mask: Use color #00FFFF (Cyan).
--   Lesions Mask: Use color #FF00FF (Magenta).
-
-The background of each generated image must be completely transparent. Also, provide a concise summary of the segmentation findings.
+Finally, provide a concise overall summary of the segmentation findings.
 
 Retinal Image: {{media url=photoDataUri}}`,
-  config: {
-    responseModalities: ['TEXT', 'IMAGE'],
-  },
 });
 
 const segmentRetinalImageFlow = ai.defineFlow(
