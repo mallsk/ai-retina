@@ -34,7 +34,6 @@ For each feature, you must generate a transparent PNG image as a data URI. The m
 The background of each generated image must be completely transparent. Also, provide a concise summary of the segmentation findings.
 
 Retinal Image: {{media url=photoDataUri}}`,
-  model: 'googleai/gemini-1.5-flash',
   config: {
     responseModalities: ['TEXT', 'IMAGE'],
   },
