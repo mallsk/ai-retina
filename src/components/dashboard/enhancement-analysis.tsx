@@ -8,8 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { AdaptiveFilterApplicationOutput } from '@/ai/flows/adaptive-filter-application';
-import { EnhancementFilterAnalysisOutput } from '@/ai/flows/enhancement-filter-analysis';
+import { AdaptiveFilterApplicationOutput } from '@/ai/types/adaptive-filter-application';
+import { EnhancementFilterAnalysisOutput } from '@/ai/types/enhancement-filter-analysis';
 import { Lightbulb } from 'lucide-react';
 
 interface EnhancementAnalysisProps {

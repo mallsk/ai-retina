@@ -1,17 +1,19 @@
-import type { ClassifySeverityOutput } from '@/ai/flows/severity-classification';
-import type { GenerateDoctorDashboardOutput } from '@/ai/flows/generate-doctor-dashboard';
-import type { PatientDashboardOutput } from '@/ai/flows/generate-patient-dashboard';
-import type { EnhancementFilterAnalysisOutput } from '@/ai/flows/enhancement-filter-analysis';
-import type { AdaptiveFilterApplicationOutput } from '@/ai/flows/adaptive-filter-application';
-import type { EvaluationMetricsOutput } from '@/ai/flows/generate-evaluation-metrics';
+import type { ClassifySeverityOutput } from '@/ai/types/severity-classification';
+import type { GenerateDoctorDashboardOutput } from '@/ai/types/generate-doctor-dashboard';
+import type { PatientDashboardOutput } from '@/ai/types/generate-patient-dashboard';
+import type { EnhancementFilterAnalysisOutput } from '@/ai/types/enhancement-filter-analysis';
+import type { AdaptiveFilterApplicationOutput } from '@/ai/types/adaptive-filter-application';
+import type { EvaluationMetricsOutput } from '@/ai/types/generate-evaluation-metrics';
+import type { SegmentRetinalImageOutput } from '@/ai/types/segment-retinal-image';
 
 export type AnalysisResults = {
   severity: ClassifySeverityOutput;
   doctorDashboard: GenerateDoctorDashboardOutput;
-  patientDashboard: PatientDashboardOutput;
+  patientDashboard: PatientDashboardOutput & { retinalImage: string };
   enhancementAnalysis: EnhancementFilterAnalysisOutput;
   adaptiveFilter: AdaptiveFilterApplicationOutput;
   metrics: EvaluationMetricsOutput;
+  segmentation: SegmentRetinalImageOutput;
 };
 
 // This is a new type based on the updated flow

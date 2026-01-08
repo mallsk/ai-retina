@@ -5,6 +5,7 @@ import { AnalysisResults } from '@/lib/types';
 import { DoctorView } from './doctor-view';
 import { PatientView } from './patient-view';
 import { EnhancementAnalysis } from './enhancement-analysis';
+import { SegmentationView } from './segmentation-view';
 
 interface AnalysisDashboardProps {
   results: AnalysisResults | null;
@@ -44,10 +45,11 @@ export function AnalysisDashboard({ results, isLoading, error }: AnalysisDashboa
 
   return (
     <Tabs defaultValue="doctor" className="w-full">
-      <TabsList className="grid w-full grid-cols-3">
+      <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="doctor">Doctor View</TabsTrigger>
         <TabsTrigger value="patient">Patient View</TabsTrigger>
         <TabsTrigger value="filters">Filter Analysis</TabsTrigger>
+        <TabsTrigger value="segmentation">Segmentation</TabsTrigger>
       </TabsList>
       <TabsContent value="doctor">
         <DoctorView
@@ -65,6 +67,12 @@ export function AnalysisDashboard({ results, isLoading, error }: AnalysisDashboa
           adaptiveFilterApplication={results.adaptiveFilter}
         />
       </TabsContent>
+      <TabsContent value="segmentation">
+        <SegmentationView
+          segmentationResult={results.segmentation}
+          originalImageUri={results.patientDashboard.retinalImage}
+        />
+      </TabsContent>
     </Tabs>
   );
 }
@@ -73,9 +81,10 @@ function ResultsSkeleton() {
   return (
     <div className="space-y-4">
       <div className="flex space-x-2">
-        <Skeleton className="h-10 w-1/3" />
-        <Skeleton className="h-10 w-1/3" />
-        <Skeleton className="h-10 w-1/3" />
+        <Skeleton className="h-10 w-1/4" />
+        <Skeleton className="h-10 w-1/4" />
+        <Skeleton className="h-10 w-1/4" />
+        <Skeleton className="h-10 w-1/4" />
       </div>
       <Card>
         <CardHeader>

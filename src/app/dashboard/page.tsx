@@ -10,6 +10,7 @@ import { generatePatientDashboard } from '@/ai/flows/generate-patient-dashboard'
 import { analyzeEnhancementFilters } from '@/ai/flows/enhancement-filter-analysis';
 import { adaptiveFilterApplication } from '@/ai/flows/adaptive-filter-application';
 import { generateEvaluationMetrics } from '@/ai/flows/generate-evaluation-metrics';
+import { segmentRetinalImage } from '@/ai/flows/segment-retinal-image';
 
 import { ImageUploader } from '@/components/dashboard/image-uploader';
 import { AnalysisDashboard } from '@/components/dashboard/analysis-dashboard';
@@ -33,11 +34,13 @@ export default function DashboardPage() {
         enhancementAnalysisResult,
         adaptiveFilterResult,
         metricsResult,
+        segmentationResult,
       ] = await Promise.all([
         classifySeverity({ photoDataUri: dataUri }),
         analyzeEnhancementFilters({ photoDataUri: dataUri }),
         adaptiveFilterApplication({ photoDataUri: dataUri }),
         generateEvaluationMetrics(),
+        segmentRetinalImage({ photoDataUri: dataUri }),
       ]);
 
       const doctorDashboardResult = await generateDoctorDashboard({
@@ -61,6 +64,7 @@ export default function DashboardPage() {
         metrics: metricsResult,
         doctorDashboard: doctorDashboardResult,
         patientDashboard: patientDashboardResult,
+        segmentation: segmentationResult,
       });
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
