@@ -8,8 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { AdaptiveFilterApplicationOutput } from '@/ai/flows/adaptive-filter-application';
-import { EnhancementFilterAnalysisOutput } from '@/ai/flows/enhancement-filter-analysis';
+import { AdaptiveFilterApplicationOutput } from '@/ai/types/adaptive-filter-application';
+import { EnhancementFilterAnalysisOutput } from '@/ai/types/enhancement-filter-analysis';
 import { Lightbulb, Award } from 'lucide-react';
 
 interface EnhancementAnalysisProps {
@@ -65,6 +65,10 @@ export function EnhancementAnalysis({
               <TableRow>
                 <TableHead>Filter</TableHead>
                 <TableHead className="text-center">PSNR (dB)</TableHead>
+                <TableHead className="text-center">SSIM</TableHead>
+                <TableHead className="text-center">MSE</TableHead>
+                <TableHead className="text-center">Entropy</TableHead>
+                <TableHead className="text-center">CII</TableHead>
                 <TableHead className="text-center">Efficiency (ms/image)</TableHead>
                 <TableHead>Strengths</TableHead>
                 <TableHead>Limitations</TableHead>
@@ -75,6 +79,10 @@ export function EnhancementAnalysis({
                 <TableRow key={filter.filterName}>
                   <TableCell className="font-medium">{filter.filterName}</TableCell>
                   <TableCell className="text-center">{filter.psnr.toFixed(2)}</TableCell>
+                  <TableCell className="text-center">{filter.ssim.toFixed(3)}</TableCell>
+                  <TableCell className="text-center">{filter.mse.toFixed(2)}</TableCell>
+                  <TableCell className="text-center">{filter.entropy.toFixed(2)}</TableCell>
+                  <TableCell className="text-center">{filter.cii.toFixed(2)}</TableCell>
                   <TableCell className="text-center">{filter.efficiency}</TableCell>
                   <TableCell>{filter.strengths}</TableCell>
                   <TableCell>{filter.limitations}</TableCell>

@@ -3,27 +3,11 @@
  * @fileOverview Classifies retinal images into severity levels (Low, Mid, High) with a confidence score.
  *
  * - classifySeverity - A function that handles the severity classification process.
- * - ClassifySeverityInput - The input type for the classifySeverity function.
- * - ClassifySeverityOutput - The return type for the classifySeverity function.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
-
-const ClassifySeverityInputSchema = z.object({
-  photoDataUri: z
-    .string()
-    .describe(
-      "A photo of a retina, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
-});
-export type ClassifySeverityInput = z.infer<typeof ClassifySeverityInputSchema>;
-
-const ClassifySeverityOutputSchema = z.object({
-  severity: z.enum(['Low Diabetic Retinopathy', 'Mid Diabetic Retinopathy', 'High Diabetic Retinopathy']).describe('The severity level of diabetic retinopathy.'),
-  confidence: z.number().min(0).max(1).describe('The confidence score of the classification, between 0 and 1.'),
-});
-export type ClassifySeverityOutput = z.infer<typeof ClassifySeverityOutputSchema>;
+import type { ClassifySeverityInput, ClassifySeverityOutput } from '@/ai/types/severity-classification';
+import { ClassifySeverityInputSchema, ClassifySeverityOutputSchema } from '@/ai/types/severity-classification';
 
 export async function classifySeverity(input: ClassifySeverityInput): Promise<ClassifySeverityOutput> {
   return classifySeverityFlow(input);

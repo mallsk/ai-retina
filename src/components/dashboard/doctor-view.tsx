@@ -9,9 +9,9 @@ import {
   ChartConfig,
 } from '@/components/ui/chart';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { GenerateDoctorDashboardOutput } from '@/ai/flows/generate-doctor-dashboard';
-import { ClassifySeverityOutput } from '@/ai/flows/severity-classification';
-import { EvaluationMetricsOutput } from '@/ai/flows/generate-evaluation-metrics';
+import { GenerateDoctorDashboardOutput } from '@/ai/types/generate-doctor-dashboard';
+import { ClassifySeverityOutput } from '@/ai/types/severity-classification';
+import { EvaluationMetricsOutput } from '@/ai/types/generate-evaluation-metrics';
 import { Stethoscope, FlaskConical, Lightbulb, Activity } from 'lucide-react';
 import { Disclaimer } from './disclaimer';
 

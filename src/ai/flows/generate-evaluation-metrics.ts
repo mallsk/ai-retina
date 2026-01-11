@@ -7,19 +7,12 @@
  * This is designed to simulate model performance assessment in a research environment.
  *
  * @exports generateEvaluationMetrics - The main function to trigger the evaluation metrics generation flow.
- * @exports EvaluationMetricsOutput - The type definition for the output of the flow.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import type { EvaluationMetricsOutput } from '@/ai/types/generate-evaluation-metrics';
+import { EvaluationMetricsOutputSchema } from '@/ai/types/generate-evaluation-metrics';
 
-const EvaluationMetricsOutputSchema = z.object({
-  accuracy: z.number().describe('The accuracy of the classification model (0-1).'),
-  precision: z.number().describe('The precision of the classification model (0-1).'),
-  recall: z.number().describe('The recall of the classification model (0-1).'),
-  f1Score: z.number().describe('The F1-score of the classification model (0-1).'),
-});
-export type EvaluationMetricsOutput = z.infer<typeof EvaluationMetricsOutputSchema>;
 
 export async function generateEvaluationMetrics(): Promise<EvaluationMetricsOutput> {
   return generateEvaluationMetricsFlow();

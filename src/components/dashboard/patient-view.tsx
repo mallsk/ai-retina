@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PatientDashboardOutput } from '@/ai/flows/generate-patient-dashboard';
+import { PatientDashboardOutput } from '@/ai/types/generate-patient-dashboard';
 import { Disclaimer } from './disclaimer';
 import { FileText, HeartPulse, Forward } from 'lucide-react';
 
