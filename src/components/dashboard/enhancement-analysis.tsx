@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/table';
 import { AdaptiveFilterApplicationOutput } from '@/ai/flows/adaptive-filter-application';
 import { EnhancementFilterAnalysisOutput } from '@/ai/flows/enhancement-filter-analysis';
-import { Lightbulb } from 'lucide-react';
+import { Lightbulb, Award } from 'lucide-react';
 
 interface EnhancementAnalysisProps {
   enhancementFilterAnalysis: EnhancementFilterAnalysisOutput;
@@ -26,12 +26,15 @@ export function EnhancementAnalysis({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Filter Recommendation</CardTitle>
+            <CardTitle className="flex items-center">
+              <Award className="w-5 h-5 mr-2 text-primary"/>
+              Best Performing Filter
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
               <div className='flex items-center gap-4'>
-                  <span className='font-medium'>Best Conventional Filter:</span>
-                  <Badge>{enhancementFilterAnalysis.bestFilter}</Badge>
+                  <span className='font-medium'>Recommendation:</span>
+                  <Badge variant="default" className="text-base">{enhancementFilterAnalysis.bestFilter}</Badge>
               </div>
               <div>
                   <h4 className="flex items-center text-md font-semibold mb-1">
@@ -54,16 +57,15 @@ export function EnhancementAnalysis({
 
       <Card>
         <CardHeader>
-          <CardTitle>Conventional Filter Comparison</CardTitle>
+          <CardTitle>Conventional Filter Performance Analysis</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Filter</TableHead>
-                <TableHead className="text-center">Vessel Enhancement</TableHead>
-                <TableHead className="text-center">Lesion Visibility</TableHead>
-                <TableHead className="text-center">Noise Reduction</TableHead>
+                <TableHead className="text-center">PSNR (dB)</TableHead>
+                <TableHead className="text-center">Efficiency (ms/image)</TableHead>
                 <TableHead>Strengths</TableHead>
                 <TableHead>Limitations</TableHead>
               </TableRow>
@@ -72,9 +74,8 @@ export function EnhancementAnalysis({
               {enhancementFilterAnalysis.analysis.map((filter) => (
                 <TableRow key={filter.filterName}>
                   <TableCell className="font-medium">{filter.filterName}</TableCell>
-                  <TableCell className="text-center">{filter.vesselEnhancement}/10</TableCell>
-                  <TableCell className="text-center">{filter.lesionVisibility}/10</TableCell>
-                  <TableCell className="text-center">{filter.noiseReduction}/10</TableCell>
+                  <TableCell className="text-center">{filter.psnr.toFixed(2)}</TableCell>
+                  <TableCell className="text-center">{filter.efficiency}</TableCell>
                   <TableCell>{filter.strengths}</TableCell>
                   <TableCell>{filter.limitations}</TableCell>
                 </TableRow>

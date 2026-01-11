@@ -15,4 +15,10 @@ export type AnalysisResults = {
 };
 
 // This is a new type based on the updated flow
-export type FilterAnalysisDetail = EnhancementFilterAnalysisOutput extends { analysis: (infer U)[] } ? U : never;
+export type FilterAnalysisDetail = {
+  filterName: string;
+  psnr: number;
+  efficiency: string;
+  strengths: string;
+  limitations: string;
+}

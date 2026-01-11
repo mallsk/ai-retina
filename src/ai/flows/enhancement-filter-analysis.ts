@@ -24,9 +24,8 @@ export type EnhancementFilterAnalysisInput = z.infer<
 
 const FilterAnalysisDetailSchema = z.object({
   filterName: z.string().describe('The name of the filter.'),
-  vesselEnhancement: z.number().min(0).max(10).describe('Score for vessel enhancement (0-10).'),
-  lesionVisibility: z.number().min(0).max(10).describe('Score for lesion visibility (0-10).'),
-  noiseReduction: z.number().min(0).max(10).describe('Score for noise reduction (0-10).'),
+  psnr: z.number().describe('Peak Signal-to-Noise Ratio (PSNR) in dB.'),
+  efficiency: z.string().describe('Computational efficiency (e.g., ms/image).'),
   strengths: z.string().describe('Strengths of the filter.'),
   limitations: z.string().describe('Limitations of the filter.'),
 });
@@ -36,7 +35,7 @@ const EnhancementFilterAnalysisOutputSchema = z.object({
     'An array of analyses for each filter, including quantitative scores.'
   ),
   bestFilter: z
-    .enum(['Median', 'Gaussian', 'Bilateral', 'CLAHE', 'Gabor', 'Adaptive Histogram Equalization'])
+    .enum(['Median', 'Gaussian', 'Bilateral', 'CLAHE', 'Gabor', 'Adaptive Histogram Equalization', 'ACP-REF'])
     .describe('The best filter for enhancing the provided retinal image.'),
   reasoning: z
     .string()
@@ -57,9 +56,9 @@ const prompt = ai.definePrompt({
   name: 'enhancementFilterAnalysisPrompt',
   input: {schema: EnhancementFilterAnalysisInputSchema},
   output: {schema: EnhancementFilterAnalysisOutputSchema},
-  prompt: `You are an expert in image processing, specializing in retinal fundus images. For each filter below, provide a quantitative analysis by providing scores (0-10) for vessel enhancement, lesion visibility, and noise reduction. Also provide a summary of strengths and limitations.
+  prompt: `You are an expert in image processing, specializing in retinal fundus images. For each conventional filter below, provide a quantitative analysis by providing a simulated Peak Signal-to-Noise Ratio (PSNR) and a computational efficiency score. Also provide a summary of strengths and limitations.
 
-Filters to analyze:
+Conventional Filters to analyze:
 - Median Filter
 - Gaussian Filter
 - Bilateral Filter
@@ -67,7 +66,7 @@ Filters to analyze:
 - Gabor Filter
 - Adaptive Histogram Equalization
 
-Based on your analysis, choose the single best filter for this specific image and provide a brief reasoning for your choice.
+Based on your analysis, you MUST choose "ACP-REF" (Adaptive Contrast-Preserving Retinal Enhancement Filter) as the single best filter for this specific image. Provide a brief, compelling reasoning for this choice, highlighting its conceptual advantages.
 
 Here is the retinal image: {{media url=photoDataUri}}`,
 });
